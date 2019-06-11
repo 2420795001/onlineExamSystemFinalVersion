@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.papermanage.PaperManageMapper">
+
+    <resultMap id="paperDetail" type="com.example.demo.entity.paperdetail.PaperDetail">
+        <id property="pdid" column="pdid"/>
+        <result property="pid" column="pid"/>
+        <result property="content" column="content"/>
+        <result property="typeA" column="typeA"/>
+        <result property="typeB" column="typeB"/>
+        <result property="typeC" column="typeC"/>
+        <result property="typeD" column="typeD"/>
+        <result property="right" column="right"/>
+        <result property="types" column="types"/>
+        <result property="value" column="value"/>
+        <result property="pname" column="pname"/>
+        <result property="duration" column="duration"/>
+
+    </resultMap>
+
+    <insert id="addPaper">
+        INSERT INTO `t_paper`
+        (`pname`, `duration`)
+        VALUES (#{paperDetail.pname}, #{paperDetail.duration})
+    </insert>
+
+    <update id="updatePaper">
+        UPDATE `t_paper`
+        SET
+        `pname`= #{paperDetail.pname}, `duration` = #{paperDetail.duration}
+        WHERE pid= #{paperDetail.pid}
+    </update>
+
+    <delete id="delPaper">
+        DELETE FROM t_paper
+        WHERE pid = #{pid}
+    </delete>
+
+    <select id="listAllPaper" resultMap="paperDetail">
+        SELECT *
+        FROM t_paper
+    </select>
+
+    <select id="queryPaper" resultMap="paperDetail">
+        SELECT *
+        FROM t_paper
+        WHERE `pname` LIKE #{keyword}
+    </select>
+
+    <select id="listPaper" resultMap="paperDetail">
+        SELECT *
+        FROM t_paper
+        WHERE pid=#{pid}
+    </select>
+
+</mapper>

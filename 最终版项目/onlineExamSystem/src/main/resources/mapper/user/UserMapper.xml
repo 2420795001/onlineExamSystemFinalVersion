@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.user.UserMapper">
+
+    <resultMap id="user" type="com.example.demo.entity.user.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="birthday" column="birthday"/>
+        <result property="sex" column="sex"/>
+        <result property="addr" column="addr"/>
+        <result property="power" column="power"/>
+        <result property="phone" column="phone"/>
+        <result property="hpic" column="hpic"/>
+    </resultMap>
+
+    <insert id="addUser">
+        INSERT INTO `t_user`
+        (`username`,`password`)
+        VALUES (#{user.username},#{user.password})
+    </insert>
+
+    <update id="updateUserPassword">
+        UPDATE `t_user`
+        SET
+        `password`=#{user.password}
+        WHERE `username`=#{user.username}
+    </update>
+
+    <select id="pswIsTrue" resultMap="user">
+        SELECT * FROM `t_user`
+        WHERE`username`=#{username} and `password`=#{password}
+    </select>
+
+    <select id="searchUser" resultMap="user">
+        SELECT *
+        FROM t_user
+        WHERE `username` = #{username}
+    </select>
+
+    <update id="updateUser">
+        UPDATE `t_user`
+        SET
+        `username`= #{user.username}, `birthday`=#{user.birthday}, `sex`=#{user.sex} ,`addr`=#{user.addr}, `phone`=#{user.phone}, `hpic`=#{user.hpic}
+        WHERE `uid`=#{user.uid}
+    </update>
+
+    <select id="listUserById" resultMap="user">
+        SELECT *
+        FROM t_user
+        WHERE uid=#{uid}
+    </select>
+
+    <select id="getUserId" resultMap="user">
+        SELECT *
+        FROM t_user
+        WHERE `username` = #{username}
+    </select>
+
+</mapper>

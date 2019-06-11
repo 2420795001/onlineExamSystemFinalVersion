@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.question.QuestionMapper">
+
+    <resultMap id="question" type="com.example.demo.entity.paperdetail.PaperDetail">
+        <id property="qid" column="qid"/>
+        <result property="content" column="content"/>
+        <result property="typeA" column="typeA"/>
+        <result property="typeB" column="typeB"/>
+        <result property="typeC" column="typeC"/>
+        <result property="typeD" column="typeD"/>
+        <result property="right" column="right"/>
+        <result property="types" column="types"/>
+        <result property="value" column="value"/>
+    </resultMap>
+
+    <insert id="addQuestion">
+        INSERT INTO `t_question`
+        (`content`, `typeA`, `typeB`, `typeC` ,`typeD`,  `right`, `types`, `value`)
+        VALUES (#{paperDetail.content} ,#{paperDetail.typeA} ,#{paperDetail.typeB}, #{paperDetail.typeC}, #{paperDetail.typeD}, #{paperDetail.right}, #{paperDetail.types}, #{paperDetail.value})
+    </insert>
+
+    <update id="updateQuestion">
+        UPDATE `t_question`
+        SET
+        `content`=#{paperDetail.content}, `typeA`= #{paperDetail.typeA}, `typeB`= #{paperDetail.typeB}, `typeC`= #{paperDetail.typeC}, `typeD`= #{paperDetail.typeD}, `right`= #{paperDetail.right}, `types`= #{paperDetail.types}, `value`=#{paperDetail.value}
+        WHERE `qid`= #{paperDetail.qid}
+    </update>
+
+    <delete id="delQuestion">
+        DELETE FROM t_question
+        WHERE qid = #{qid}
+    </delete>
+
+    <select id="listAllQuestion" resultMap="question">
+        SELECT *
+        FROM t_question
+    </select>
+
+    <select id="listQuestionByType" resultMap="question">
+        SELECT *
+        FROM t_question
+        WHERE `types` = #{types}
+    </select>
+
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.score.ScoreMapper">
+
+    <resultMap id="score" type="com.example.demo.entity.score.Score">
+        <id property="sid" column="sid"/>
+        <result property="pid" column="pid"/>
+        <result property="uid" column="uid"/>
+        <result property="mark" column="mark"/>
+        <result property="username" column="username"/>
+
+    </resultMap>
+
+    <select id="listScoreByPaper" resultMap="score">
+        SELECT sid, pid, t_score.uid, mark, username
+        FROM t_score, t_user
+        WHERE  pid = #{pid} AND t_score.uid = t_user.uid
+    </select>
+
+    <select id="listScoreByUser" resultMap="score">
+        SELECT sid, t_score.pid, t_score.uid, mark , username
+        FROM t_score, t_user
+        WHERE t_score.uid = #{uid}  AND t_score.uid = t_user.uid
+    </select>
+
+    <select id="listScoreByMark1" resultMap="score">
+        SELECT sid,pid, t_score.uid, mark, username
+        FROM t_score, t_user
+        WHERE t_score.pid = #{pid} AND t_score.mark &gt;= 60 AND t_score.uid = t_user.uid
+    </select>
+
+    <select id="listScoreByMark2" resultMap="score">
+        SELECT sid, pid, t_score.uid, mark, username
+        FROM t_score, t_user
+        WHERE t_score.pid = #{pid} AND t_score.mark &lt; 60 AND t_score.uid = t_user.uid
+    </select>
+
+    <select id="listAllScore" resultMap="score">
+        SELECT sid, pid, t_score.uid, mark, username
+        FROM t_score, t_user
+        WHERE  t_score.uid = t_user.uid
+    </select>
+
+    <insert id="addScore" >
+        INSERT INTO `t_score`
+        (`uid`, `pid`, `mark`)
+        VALUES (#{score.uid},#{score.pid},#{score.mark})
+    </insert>
+
+    <select id="listUserScore" resultMap="score">
+        SELECT *
+        FROM t_score
+        WHERE uid=#{uid}
+    </select>
+
+</mapper>

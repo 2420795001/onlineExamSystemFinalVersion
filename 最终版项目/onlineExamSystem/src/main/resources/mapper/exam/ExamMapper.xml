@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.exam.ExamMapper">
+
+    <resultMap id="paperDetail" type="com.example.demo.entity.paperdetail.PaperDetail">
+        <id property="pdid" column="pdid"/>
+        <result property="pid" column="pid"/>
+        <result property="qid" column="qid"/>
+        <result property="content" column="content"/>
+        <result property="typeA" column="typeA"/>
+        <result property="typeB" column="typeB"/>
+        <result property="typeC" column="typeC"/>
+        <result property="typeD" column="typeD"/>
+        <result property="right" column="right"/>
+        <result property="types" column="types"/>
+        <result property="value" column="value"/>
+        <result property="pname" column="pname"/>
+    </resultMap>
+
+    <select id="listExamPaper" resultMap="paperDetail">
+        SELECT *
+        FROM t_paperdetail, t_question
+        WHERE pid=#{pid} AND t_paperdetail.qid = t_question.qid
+    </select>
+
+</mapper>

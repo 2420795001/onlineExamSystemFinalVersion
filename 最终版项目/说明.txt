@@ -1,0 +1,2 @@
+exam文件夹下是前端代码，用了vue框架
+onlineExamSystem文件夹下是后端代码，用了springboot+Mybatis框架（我还把项目的后端代码放在了Linux服务器上）
